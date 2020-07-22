@@ -113,13 +113,13 @@ ETCD_INITIAL_CLUSTER_STATE="new"
     sudo chown postgres:postgres /data/patroni
     sudo chmod 700 /data/patroni
 
+```
 # patroni cannot run as root, so...
 # [all-server]
 #     create systemd script
 #     at /etc/systemd/system/patroni.service
 #     using template `patroni.service`
-
-
+```
 
 # Check
 patronictl -c /var/lib/pgsql/patroni/patroni-sl1.yml list
@@ -129,8 +129,8 @@ create some db, done, etc
 
 # TODO
 
-[ ] HAPROXY
-[ ] Test bring down
+    [ ] HAPROXY
+    [ ] Test bring down
 
 
 
