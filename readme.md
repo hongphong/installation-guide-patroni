@@ -126,6 +126,8 @@ patronictl -c /var/lib/pgsql/patroni/patroni-sl1.yml list
 
 create some db, done, etc
 
+![working_cluster](imgs/working_cluster.png)
+
 
 # TODO
 
