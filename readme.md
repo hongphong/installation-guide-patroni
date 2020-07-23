@@ -31,6 +31,7 @@ pg-mt
 pg-mt
     postgres (slave)
     patroni
+    haproxy
 ```
 
 # install 
@@ -138,6 +139,50 @@ patroni cannot run as root, so...
     using template `patroni.service`
 ```
 
+# HAProxy
+
+```
+[pg-sl1]
+    sudo apt install haproxy -y
+    copy template config from haproxy/haproxy.cfg to /etc/haproxy/haproxy.cfg
+    restat:
+        systemctl restart haproxy
+    if run fail, set this 
+        setsebool -P haproxy_connect_any=1
+    check:
+        systemctl status haproxy
+
+        goto http://pg-sl1:7000/
+```
+
+![haproxy](imgs/haproxy.png)
+
+Now you can connect to server at
+
+Try to kill master, it would looks like:
+
+![haproxy](imgs/haproxy2.png)
+
+```
+Test
+    patronictl -c /var/lib/pgsql/patroni/patroni-sl1.yml list
+
+kill master
++ Cluster: postgres (6852358865010067701) --------+----+-----------+
+|    Member    |      Host     |  Role  |  State  | TL | Lag in MB |
++--------------+---------------+--------+---------+----+-----------+
+| postgres-sl1 | 192.168.1.201 | Leader | running |  2 |           |
++--------------+---------------+--------+---------+----+-----------+
+
+after turn on master again
++ Cluster: postgres (6852358865010067701) --------+----+-----------+
+|    Member    |      Host     |  Role  |  State  | TL | Lag in MB |
++--------------+---------------+--------+---------+----+-----------+
+| postgres-mt  | 192.168.1.200 |        | running |  2 |       0.0 |
+| postgres-sl1 | 192.168.1.201 | Leader | running |  2 |           |
++--------------+---------------+--------+---------+----+-----------+
+```
+
 # Check
 
 ```
@@ -149,7 +194,4 @@ create some db, done, etc
 ![working_cluster](imgs/working_cluster.png)
 
 
-# TODO
-
-    [ ] HAPROXY / nginx / traefik
-    [ ] Test bring down
+@vietvudanh, 2020
