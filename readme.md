@@ -18,7 +18,7 @@ VBoxManage startvm cent7_pg2 --type headless
 
 # architectures
 
-![architecture](imgs/architecture.png)
+![architecture](imgs/patroni_architecture.png)
 
 # softwares
 
