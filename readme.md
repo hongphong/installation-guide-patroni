@@ -28,7 +28,7 @@ pg-mt
     patroni
     etcd
 
-pg-mt
+pg-sl1
     postgres (slave)
     patroni
     haproxy
@@ -78,8 +78,6 @@ test
     sudo pip install psycopg2-binary 
     sudo pip install patroni[etcd]
 
-    [admin]
-    pip install --user patroni[etcd]
 
 ## etcd
 
