@@ -39,7 +39,7 @@ pg-mt
 ## prepare
 
 ```
-ssh key-less to all sv
+ssh password-less to all sv
     user: admin
         sudo no password
 test
